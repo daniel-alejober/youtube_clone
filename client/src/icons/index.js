@@ -13,6 +13,10 @@ import IconSettings from "./IconSettings";
 import IconBxHelpCircle from "./IconBxHelpCircle";
 import IconDarkMode from "./IconDarkMode";
 import IconFlag from "./IconFlag";
+import IconLike from "./IconLike";
+import IconDislike from "./IconDislike";
+import IconShare from "./IconShare";
+import IconSave from "./IconSave";
 
 const blockOne = [
   { description: "Home", icon: IconHome },
@@ -41,4 +45,11 @@ const blockFour = [
   { description: "Change Mode", icon: IconDarkMode },
 ];
 
-export { blockOne, blockTwo, blockThree, blockFour };
+const blockVideo = [
+  { description: "Like", icon: IconLike },
+  { description: "Dislike", icon: IconDislike },
+  { description: "Share", icon: IconShare },
+  { description: "Save", icon: IconSave },
+];
+
+export { blockOne, blockTwo, blockThree, blockFour, blockVideo };

@@ -43,6 +43,7 @@ const Logo = styled.div`
 const Name = styled.span`
   font-size: small;
   font-weight: ${(props) => (props.bold ? "bold" : "")};
+  color: ${({ theme }) => theme.text};
 `;
 
 const Item = styled.div`
