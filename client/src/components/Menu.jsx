@@ -1,4 +1,5 @@
 import React from "react";
+import { Link, useNavigate } from "react-router-dom";
 import {
   Container,
   Wrapper,
@@ -14,13 +15,16 @@ import IconUser from "../icons/IconUser";
 import { blockOne, blockTwo, blockThree, blockFour } from "../icons";
 
 const Menu = ({ setDarkMode, darkMode }) => {
+  const navigate = useNavigate();
   return (
     <Container>
       <Wrapper>
-        <Logo>
-          <IconYoutube height="2.5rem" width="2.5rem" color="red" />
-          <Name>Daniel Alejo</Name>
-        </Logo>
+        <Link to="/">
+          <Logo>
+            <IconYoutube height="2.5rem" width="2.5rem" color="red" />
+            <Name>Daniel Alejo</Name>
+          </Logo>
+        </Link>
         {blockOne.map((block) => (
           <Item key={block.description}>
             <block.icon />
@@ -37,7 +41,7 @@ const Menu = ({ setDarkMode, darkMode }) => {
         <Hr />
         <Login>
           <Name>Sing in to like videos,comment, and subscribe.</Name>
-          <BtnLogin>
+          <BtnLogin onClick={() => navigate("/signin")}>
             {" "}
             <IconUser /> SIGN IN
           </BtnLogin>

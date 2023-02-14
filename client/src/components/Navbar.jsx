@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import IconUser from "../icons/IconUser";
 import IconSearch from "../icons/IconSearch";
 import {
@@ -10,6 +11,7 @@ import {
 } from "../styles/navbarStyles";
 
 const Navbar = () => {
+  const navigate = useNavigate();
   return (
     <Container>
       <Wrapper>
@@ -17,7 +19,7 @@ const Navbar = () => {
           <Input placeholder="Search" />
           <IconSearch />
         </Search>
-        <BtnLogin>
+        <BtnLogin onClick={() => navigate("/signin")}>
           <IconUser /> SIGN IN
         </BtnLogin>
       </Wrapper>
