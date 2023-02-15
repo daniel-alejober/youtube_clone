@@ -124,6 +124,25 @@ const sub = async (req, res) => {
   }
 };
 
+const getByTags = async (req, res) => {
+  const tags = req.query.tags.split(",");
+
+  try {
+    //*en el modelo de Video hay un campo llamado tags, vamos a buscar todos los videos que tengan los mismos tags que en el req.query.tags,, tambien sirve para poder ingresar nuevos datos a los objetos(Buscar documentacion mongodb $in) con un limite de 20 videos
+    //! $in: [] debe de recibir un arrary donde contenga las opcines que va a filtrar
+    const videos = await Video.find({ tags: { $in: tags } }).limit(20);
+    if (videos.length === 0) {
+      const error = new Error("Videos not found by this tag");
+      return res.status(400).json({ message: error.message, success: false });
+    }
+    res.status(200).json({ success: true, videos });
+  } catch (error) {
+    res.status(500).json(error.message);
+  }
+};
+
+const search = async (req, res) => {};
+
 export {
   addVideo,
   updateVideo,
@@ -133,4 +152,6 @@ export {
   trend,
   random,
   sub,
+  getByTags,
+  search,
 };

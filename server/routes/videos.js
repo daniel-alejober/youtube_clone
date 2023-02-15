@@ -9,6 +9,8 @@ import {
   trend,
   random,
   sub,
+  getByTags,
+  search,
 } from "../controllers/video.js";
 
 const router = express.Router();
@@ -21,5 +23,7 @@ router.get("/view/:id", addView);
 router.get("/random", random);
 router.get("/trend", trend);
 router.get("/sub", verifyJWT, sub);
+router.get("/tags", getByTags);
+router.get("/search", search);
 
 export default router;
