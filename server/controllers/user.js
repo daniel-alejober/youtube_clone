@@ -52,7 +52,7 @@ const subscribe = async (req, res) => {
   try {
     //*ya que subscribedUsers es un array usamos $push para ir metiendo los id de los usuarios a los cuales nos hayamos suscribido
     //*req.is viene del middleware no es el mismo id que el del params
-    await User.findById(req.id, {
+    await User.findByIdAndUpdate(req.id, {
       $push: { subscribedUsers: req.params.id },
     });
     //*Vamos a incrementar el numero de suscriptores del canal
@@ -70,7 +70,7 @@ const unsubscribe = async (req, res) => {
   try {
     //*pull quirata los valores de array
     //*req.is viene del middleware no es el mismo id que el del params
-    await User.findById(req.id, {
+    await User.findByIdAndUpdate(req.id, {
       $pull: { subscribedUsers: req.params.id },
     });
     //*Vamos a decrementar el numero de suscriptores del canal
