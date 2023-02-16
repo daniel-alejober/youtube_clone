@@ -141,7 +141,26 @@ const getByTags = async (req, res) => {
   }
 };
 
-const search = async (req, res) => {};
+const search = async (req, res) => {
+  const query = req.query.q;
+
+  try {
+    //*Vamos a traer todos los video que coincidad con el titulo
+    //*con $regex nos ayudara a poder comparar el titulo primero le pasamos el valor que esta ingresando y despues la opcion
+    //*"s" -> hace que coincidan los "." por si el usuario escribio mas de una linea
+    //*"i"-> hace que no importa si sean mayusculas o minusculas hay mas opcines
+    const videos = await Video.find({
+      title: { $regex: query, $options: "si" },
+    }).limit(40);
+    if (videos.length === 0) {
+      const error = new Error("Videos not found by this search");
+      return res.status(400).json({ message: error.message, success: false });
+    }
+    res.status(200).json({ success: true, videos });
+  } catch (error) {
+    res.status(500).json(error.message);
+  }
+};
 
 export {
   addVideo,
