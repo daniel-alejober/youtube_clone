@@ -51,6 +51,7 @@ const Item = styled.div`
   align-items: center;
   gap: 2rem;
   padding: 1rem 0;
+  color: ${({ theme }) => theme.text};
   cursor: pointer;
   &:hover {
     background-color: ${({ theme }) => theme.hover};

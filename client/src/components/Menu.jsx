@@ -26,10 +26,12 @@ const Menu = ({ setDarkMode, darkMode }) => {
           </Logo>
         </Link>
         {blockOne.map((block) => (
-          <Item key={block.description}>
-            <block.icon />
-            <Name bold>{block.description}</Name>
-          </Item>
+          <Link to={block.route} key={block.description}>
+            <Item>
+              <block.icon />
+              <Name bold>{block.description}</Name>
+            </Item>
+          </Link>
         ))}
         <Hr />
         {blockTwo.map((block) => (

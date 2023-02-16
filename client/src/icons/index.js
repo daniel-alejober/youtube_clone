@@ -19,9 +19,13 @@ import IconShare from "./IconShare";
 import IconSave from "./IconSave";
 
 const blockOne = [
-  { description: "Home", icon: IconHome },
-  { description: "Explore", icon: IconExplore },
-  { description: "Subscriptions", icon: IconYoutubeSubscription },
+  { description: "Home", icon: IconHome, route: "/" },
+  { description: "Explore", icon: IconExplore, route: "/trends" },
+  {
+    description: "Subscriptions",
+    icon: IconYoutubeSubscription,
+    route: "/subscriptions",
+  },
 ];
 
 const blockTwo = [

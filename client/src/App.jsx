@@ -22,10 +22,9 @@ function App() {
           <Main>
             <Navbar />
             <Routes>
-              <Route
-                path="/"
-                element={<Home setDarkMode={setDarkMode} darkMode={darkMode} />}
-              />
+              <Route path="/" element={<Home type="random" />} />
+              <Route path="/trends" element={<Home type="trend" />} />
+              <Route path="/subscriptions" element={<Home type="sub" />} />
               <Route path="/video/:id" element={<Video />} />
               <Route path="/signin" element={<SignIn />} />
             </Routes>
