@@ -1,4 +1,5 @@
 import User from "../models/User.js";
+import Video from "../models/Video.js";
 
 const updateUser = async (req, res) => {
   if (req.params.id === req.id) {
@@ -84,8 +85,41 @@ const unsubscribe = async (req, res) => {
     res.status(500).json(error.message);
   }
 };
-const like = async (req, res) => {};
-const dislike = async (req, res) => {};
+const like = async (req, res) => {
+  const userId = req.id;
+  const videoId = req.params.videoId;
+
+  try {
+    //*$addToSet agregar un valor a un array, si el valor ya esta agregado al array no le hace nada
+    await Video.findByIdAndUpdate(videoId, {
+      //*si un usuario le da like y antes le habia dado dislike se agrega a likes y se quita de los dislikes
+      $addToSet: { likes: userId },
+      $pull: { dislikes: userId },
+    });
+    res
+      .status(200)
+      .json({ message: "The video has been liked.", success: true });
+  } catch (error) {
+    res.status(500).json(error.message);
+  }
+};
+const dislike = async (req, res) => {
+  const userId = req.id;
+  const videoId = req.params.videoId;
+  try {
+    //*$addToSet agregar un valor a un array, si el valor ya esta agregado al array no le hace nada
+    await Video.findByIdAndUpdate(videoId, {
+      //*si un usuario le da like y antes le habia dado dislike se agrega a likes y se quita de los dislikes
+      $addToSet: { dislikes: userId },
+      $pull: { likes: userId },
+    });
+    res
+      .status(200)
+      .json({ message: "The video has been disliked.", success: true });
+  } catch (error) {
+    res.status(500).json(error.message);
+  }
+};
 
 export {
   updateUser,

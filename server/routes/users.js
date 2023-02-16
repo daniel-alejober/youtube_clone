@@ -17,7 +17,7 @@ router.delete("/:id", verifyJWT, deleteUser);
 router.get("/find/:id", getUser);
 router.put("/sub/:id", verifyJWT, subscribe);
 router.put("/unsub/:id", verifyJWT, unsubscribe);
-router.put("like/:videoId", verifyJWT, like);
-router.put("like/:videoId", verifyJWT, dislike);
+router.put("/like/:videoId", verifyJWT, like);
+router.put("/dislike/:videoId", verifyJWT, dislike);
 
 export default router;
