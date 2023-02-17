@@ -10,6 +10,7 @@ const Home = ({ type }) => {
     const getVideos = async () => {
       try {
         const { data } = await clientAxios.get(`/videos/${type}`);
+
         if (data.success) setVideos(data.videos);
       } catch (error) {
         console.log(error);

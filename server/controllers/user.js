@@ -53,16 +53,18 @@ const subscribe = async (req, res) => {
   try {
     //*ya que subscribedUsers es un array usamos $push para ir metiendo los id de los usuarios a los cuales nos hayamos suscribido
     //*req.is viene del middleware no es el mismo id que el del params
-    await User.findByIdAndUpdate(req.id, {
-      $push: { subscribedUsers: req.params.id },
-    });
+    const currentUser = await User.findByIdAndUpdate(
+      req.id,
+      {
+        $push: { subscribedUsers: req.params.id },
+      },
+      { new: true }
+    );
     //*Vamos a incrementar el numero de suscriptores del canal
     await User.findByIdAndUpdate(req.params.id, {
       $inc: { subscribers: 1 },
     });
-    res
-      .status(200)
-      .json({ message: "Subscription successfull.", success: true });
+    res.status(200).json({ user: currentUser, success: true });
   } catch (error) {
     res.status(500).json(error.message);
   }
@@ -71,16 +73,18 @@ const unsubscribe = async (req, res) => {
   try {
     //*pull quirata los valores de array
     //*req.is viene del middleware no es el mismo id que el del params
-    await User.findByIdAndUpdate(req.id, {
-      $pull: { subscribedUsers: req.params.id },
-    });
+    const currentUser = await User.findByIdAndUpdate(
+      req.id,
+      {
+        $pull: { subscribedUsers: req.params.id },
+      },
+      { new: true }
+    );
     //*Vamos a decrementar el numero de suscriptores del canal
     await User.findByIdAndUpdate(req.params.id, {
       $inc: { subscribers: -1 },
     });
-    res
-      .status(200)
-      .json({ message: "Unsubscription successfull.", success: true });
+    res.status(200).json({ user: currentUser, success: true });
   } catch (error) {
     res.status(500).json(error.message);
   }
