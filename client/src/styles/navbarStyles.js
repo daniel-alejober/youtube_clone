@@ -53,4 +53,19 @@ const BtnLogin = styled.button`
   gap: 0.5rem;
 `;
 
-export { Search, BtnLogin, Input, Wrapper, Container };
+const User = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 500;
+  color: ${({ theme }) => theme.text};
+`;
+
+const Avatar = styled.img`
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: #999;
+`;
+
+export { Search, BtnLogin, Input, Wrapper, Container, User, Avatar };

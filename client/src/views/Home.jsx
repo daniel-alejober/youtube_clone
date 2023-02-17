@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import clientAxios from "../utils/clientAxios";
 import Card from "../components/Card";
-import { Container } from "../styles/homeStyles";
+import { Container, NoSub } from "../styles/homeStyles";
 
 const Home = ({ type }) => {
   const [videos, setVideos] = useState([]);
@@ -20,9 +20,11 @@ const Home = ({ type }) => {
 
   return (
     <Container>
-      {videos.map((video) => (
-        <Card key={video._id} video={video} />
-      ))}
+      {videos.length === 0 ? (
+        <NoSub>You have not subscribed to any channel.</NoSub>
+      ) : (
+        videos.map((video) => <Card key={video._id} video={video} />)
+      )}
     </Container>
   );
 };

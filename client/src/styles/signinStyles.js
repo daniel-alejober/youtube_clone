@@ -19,6 +19,13 @@ const Wrapper = styled.div`
   gap: 1rem;
 `;
 
+const Form = styled.form`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`;
+
 const Title = styled.h1`
   font-size: 2.4rem;
 `;
@@ -35,6 +42,7 @@ const Input = styled.input`
   background-color: transparent;
   width: 100%;
   color: ${({ theme }) => theme.text};
+  margin: 0.8rem 0;
 `;
 
 const Button = styled.button`
@@ -72,4 +80,5 @@ export {
   Title,
   Wrapper,
   Container,
+  Form,
 };

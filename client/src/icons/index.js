@@ -18,7 +18,7 @@ import IconDislike from "./IconDislike";
 import IconShare from "./IconShare";
 import IconSave from "./IconSave";
 
-const blockOne = [
+const blockOneUser = [
   { description: "Home", icon: IconHome, route: "/" },
   { description: "Explore", icon: IconExplore, route: "/trends" },
   {
@@ -26,6 +26,10 @@ const blockOne = [
     icon: IconYoutubeSubscription,
     route: "/subscriptions",
   },
+];
+const blockOne = [
+  { description: "Home", icon: IconHome, route: "/" },
+  { description: "Explore", icon: IconExplore, route: "/trends" },
 ];
 
 const blockTwo = [
@@ -56,4 +60,4 @@ const blockVideo = [
   { description: "Save", icon: IconSave },
 ];
 
-export { blockOne, blockTwo, blockThree, blockFour, blockVideo };
+export { blockOne, blockTwo, blockThree, blockFour, blockVideo, blockOneUser };

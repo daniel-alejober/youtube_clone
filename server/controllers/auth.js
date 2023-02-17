@@ -13,12 +13,12 @@ const signup = async (req, res) => {
 
     const salt = bcrypt.genSaltSync(10);
     const newPassword = bcrypt.hashSync(password, salt);
-    await User.create({
+    const user = await User.create({
       email,
       name,
       password: newPassword,
     });
-    res.status(200).json({ success: true, message: "User has been created!!" });
+    res.status(200).json({ success: true, user });
   } catch (error) {
     res.status(500).json(error.message);
   }
@@ -59,6 +59,38 @@ const signin = async (req, res) => {
   }
 };
 
-const signinGoogle = () => {};
+const signinGoogle = async (req, res) => {
+  try {
+    const user = await User.findOne({ email: req.body.email });
+    if (user) {
+      const token = generatedJWT(user._id);
+      const { password, ...others } = user._doc;
+      res
+        .cookie("access_token", token, {
+          httpOnly: true,
+          maxAge: 24 * 60 * 60 * 1000, //*24hrs
+        })
+        .status(200)
+        .json(others);
+    } else {
+      try {
+        const user = await User.create({ ...req.body, fromGoogle: true });
+        const token = generatedJWT(user._id);
+        const { password, ...others } = user._doc;
+        res
+          .cookie("access_token", token, {
+            httpOnly: true,
+            maxAge: 24 * 60 * 60 * 1000, //*24hrs
+          })
+          .status(200)
+          .json(others);
+      } catch (error) {
+        res.status(500).json(error.message);
+      }
+    }
+  } catch (error) {
+    res.status(500).json(error.message);
+  }
+};
 
 export { signup, signin, signinGoogle };
