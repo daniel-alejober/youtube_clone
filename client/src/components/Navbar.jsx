@@ -12,6 +12,7 @@ import {
   Container,
   User,
   Avatar,
+  BtnSend,
 } from "../styles/navbarStyles";
 import Upload from "./Upload";
 
@@ -19,13 +20,28 @@ const Navbar = () => {
   const navigate = useNavigate();
   const { currentUser } = useSelector((state) => state.user);
   const [openModal, setOpenModal] = useState(false);
+  const [searchVideo, setSearchVideo] = useState("");
+
+  const handleSearch = async (e) => {
+    e.preventDefault();
+    if (searchVideo === "") return;
+
+    navigate(`/search?q=${searchVideo}`);
+  };
+
   return (
     <>
       <Container>
         <Wrapper>
-          <Search>
-            <Input placeholder="Search" />
-            <IconSearch />
+          <Search onSubmit={handleSearch}>
+            <Input
+              placeholder="Search"
+              value={searchVideo}
+              onChange={(e) => setSearchVideo(e.target.value)}
+            />
+            <BtnSend>
+              <IconSearch />
+            </BtnSend>
           </Search>
           {currentUser ? (
             <User>

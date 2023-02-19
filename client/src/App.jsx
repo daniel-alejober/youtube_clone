@@ -9,6 +9,7 @@ import Navbar from "./components/Navbar";
 import Home from "./views/Home";
 import Video from "./views/Video";
 import SignIn from "./views/SignIn";
+import Search from "./views/Search";
 
 function App() {
   const [darkMode, setDarkMode] = useState(true);
@@ -27,6 +28,7 @@ function App() {
               <Route path="/subscriptions" element={<Home type="sub" />} />
               <Route path="/video/:id" element={<Video />} />
               <Route path="/signin" element={<SignIn />} />
+              <Route path="/search" element={<Search />} />
             </Routes>
           </Main>
         </Container>

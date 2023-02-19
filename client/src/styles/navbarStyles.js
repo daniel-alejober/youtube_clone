@@ -16,7 +16,7 @@ const Wrapper = styled.div`
   position: relative;
 `;
 
-const Search = styled.div`
+const Search = styled.form`
   width: 40%;
   position: absolute;
   left: 0;
@@ -67,5 +67,10 @@ const Avatar = styled.img`
   border-radius: 50%;
   background-color: #999;
 `;
+const BtnSend = styled.button`
+  background-color: transparent;
+  border: none;
+  color: ${({ theme }) => theme.text};
+`;
 
-export { Search, BtnLogin, Input, Wrapper, Container, User, Avatar };
+export { Search, BtnLogin, Input, Wrapper, Container, User, Avatar, BtnSend };
