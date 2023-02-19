@@ -1,11 +1,19 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import clientAxios from "../utils/clientAxios";
+import { format } from "timeago.js";
+import { loginSuccess } from "../redux/userSlice";
 import Comments from "../components/Comments";
-import Card from "../components/Card";
+import Recommendations from "../components/Recommendations";
 import { blockVideo } from "../icons";
+import IconLike from "../icons/IconLike";
+import IconDislike from "../icons/IconDislike";
+import IconCurrentDislike from "../icons/IconCurrentDislike";
+import IconCurrentLike from "../icons/IconCurrentLike";
 import {
   Container,
   Content,
-  Recommendation,
   VideoWrapper,
   Title,
   Details,
@@ -21,25 +29,122 @@ import {
   ChannelCounter,
   Description,
   Subscribe,
+  VideoFrame,
 } from "../styles/videoStyles";
 const Video = () => {
+  const { currentUser } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+
+  const { id } = useParams();
+  const [dataVideo, setDataVideo] = useState({});
+  const [dataUserChannel, setDataUserChannel] = useState({});
+  const [likeR, setLikeR] = useState(null);
+  const [subChannel, setSubChannel] = useState(null);
+
+  useEffect(() => {
+    const getDataVideo = async () => {
+      try {
+        const { data } = await clientAxios.get(`videos/find/${id}`);
+
+        if (data.success) setDataVideo(data.video);
+        const userData = await clientAxios.get(
+          `/users/find/${data.video.userId}`
+        );
+
+        if (userData.data.success) setDataUserChannel(userData.data.user);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getDataVideo();
+  }, [likeR, subChannel]);
+
+  const changeLike = async () => {
+    if (dataVideo?.likes?.includes(currentUser?._id)) return;
+
+    try {
+      const { data } = await clientAxios.put(`users/like/${id}`);
+
+      if (data.success) {
+        setLikeR(true);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const changeDislike = async () => {
+    if (dataVideo?.dislikes?.includes(currentUser?._id)) return;
+
+    try {
+      const { data } = await clientAxios.put(`users/dislike/${id}`);
+
+      if (data.success) {
+        setLikeR(false);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const subscribeChannel = async () => {
+    if (!currentUser?.subscribedUsers?.includes(dataUserChannel?._id)) {
+      try {
+        const { data } = await clientAxios.put(
+          `/users/sub/${dataUserChannel?._id}`
+        );
+
+        if (data.success) {
+          dispatch(loginSuccess(data.user));
+          setSubChannel(true);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      try {
+        const { data } = await clientAxios.put(
+          `/users/unsub/${dataUserChannel?._id}`
+        );
+
+        if (data.success) {
+          setSubChannel(false);
+          dispatch(loginSuccess(data.user));
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+
   return (
     <Container>
       <Content>
         <VideoWrapper>
-          <iframe
-            width="100%"
-            height="500"
-            src="https://www.youtube.com/embed/k3Vfj-e1Ma4"
-            title="YouTube video player"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-          ></iframe>
+          <VideoFrame src={dataVideo?.videoUrl} controls />
         </VideoWrapper>
-        <Title>Test Video</Title>
+        <Title>{dataVideo?.title}</Title>
         <Details>
-          <Info>7,948,154 views • Jun 22, 2022</Info>
+          <Info>
+            {dataVideo?.views} views • {format(dataVideo?.createdAt)}
+          </Info>
           <Buttons>
+            <Button onClick={changeLike}>
+              {dataVideo?.likes?.includes(currentUser?._id) ? (
+                <IconCurrentLike />
+              ) : (
+                <IconLike />
+              )}
+              Like {dataVideo?.likes?.length > 0 && dataVideo?.likes?.length}
+            </Button>
+            <Button onClick={changeDislike}>
+              {dataVideo?.dislikes?.includes(currentUser?._id) ? (
+                <IconCurrentDislike />
+              ) : (
+                <IconDislike />
+              )}
+              Dislike{" "}
+              {dataVideo?.dislikes?.length > 0 && dataVideo?.dislikes?.length}
+            </Button>
             {blockVideo.map((btn) => (
               <Button key={btn.description}>
                 <btn.icon /> {btn.description}
@@ -50,38 +155,26 @@ const Video = () => {
         <Hr />
         <Channel>
           <ChannelInfo>
-            <Image src="https://avatars.githubusercontent.com/u/74944181?s=400&u=e703ca9165d84a1db5007876497551be79f5f85a&v=4" />
+            <Image src={dataUserChannel?.img} alt={dataUserChannel?.name} />
             <ChannelDetail>
-              <ChannelName>Daniel Puppy</ChannelName>
-              <ChannelCounter>200K subscribers</ChannelCounter>
-              <Description>
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                Doloribus laborum delectus unde quaerat dolore culpa sit aliquam
-                at. Vitae facere ipsum totam ratione exercitationem. Suscipit
-                animi accusantium dolores ipsam ut.
-              </Description>
+              <ChannelName>{dataUserChannel?.name}</ChannelName>
+              <ChannelCounter>
+                {dataUserChannel?.subscribers} subscribers
+              </ChannelCounter>
+              <Description>{dataVideo?.desc}</Description>
             </ChannelDetail>
           </ChannelInfo>
-          <Subscribe>SUBSCRIBE</Subscribe>
+          <Subscribe onClick={subscribeChannel}>
+            {currentUser?.subscribedUsers?.includes(dataUserChannel?._id)
+              ? "SUBSCRIBED"
+              : "SUBSCRIBE"}
+          </Subscribe>
         </Channel>
         <Hr />
-        <Comments />
+        <Comments videoId={id} />
       </Content>
-      <Recommendation>
-        <Card type="sm" />
-        <Card type="sm" />
-        <Card type="sm" />
-        <Card type="sm" />
-        <Card type="sm" />
-        <Card type="sm" />
-        <Card type="sm" />
-        <Card type="sm" />
-        <Card type="sm" />
-        <Card type="sm" />
-        <Card type="sm" />
-        <Card type="sm" />
-        <Card type="sm" />
-      </Recommendation>
+
+      {dataVideo.tags && <Recommendations tags={dataVideo.tags} />}
     </Container>
   );
 };

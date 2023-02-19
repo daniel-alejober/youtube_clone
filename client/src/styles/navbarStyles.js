@@ -16,7 +16,7 @@ const Wrapper = styled.div`
   position: relative;
 `;
 
-const Search = styled.div`
+const Search = styled.form`
   width: 40%;
   position: absolute;
   left: 0;
@@ -53,4 +53,48 @@ const BtnLogin = styled.button`
   gap: 0.5rem;
 `;
 
-export { Search, BtnLogin, Input, Wrapper, Container };
+const BtnLogout = styled.button`
+  padding: 0.5rem 1.5rem;
+  background-color: #d23513;
+  border: 1px solid #b82202;
+  color: #121111;
+  border-radius: 3px;
+  font-weight: bolder;
+  margin: 0.5rem 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+`;
+
+const User = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  font-weight: 500;
+  color: ${({ theme }) => theme.text};
+`;
+
+const Avatar = styled.img`
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: #999;
+`;
+const BtnSend = styled.button`
+  background-color: transparent;
+  border: none;
+  color: ${({ theme }) => theme.text};
+`;
+
+export {
+  Search,
+  BtnLogin,
+  Input,
+  Wrapper,
+  Container,
+  User,
+  Avatar,
+  BtnSend,
+  BtnLogout,
+};

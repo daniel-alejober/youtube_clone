@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { format } from "timeago.js";
+import clientAxios from "../utils/clientAxios";
 import {
   Container,
   Image,
@@ -11,24 +13,33 @@ import {
   Info,
 } from "../styles/cardStyles";
 
-const Card = ({ type }) => {
+const Card = ({ type, video }) => {
+  const [channel, setChannel] = useState({});
+  useEffect(() => {
+    const getDataChanel = async () => {
+      try {
+        const { data } = await clientAxios.get(`/users/find/${video?.userId}`);
+        if (data.success) setChannel(data.user);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getDataChanel();
+  }, []);
+
   return (
     <Container type={type}>
-      <Link to={`/video/${1}`}>
-        <Image
-          src="https://i.ytimg.com/vi/GliNSzCXPE0/maxresdefault.jpg"
-          type={type}
-        />
+      <Link to={`/video/${video?._id}`}>
+        <Image src={video?.imgUrl} type={type} />
       </Link>
       <Details type={type}>
-        <ChannelImage
-          src="https://avatars.githubusercontent.com/u/74944181?s=400&u=e703ca9165d84a1db5007876497551be79f5f85a&v=4"
-          type={type}
-        />
+        <ChannelImage src={channel?.img} type={type} />
         <Texts>
-          <Title>Test Video</Title>
-          <ChannelName>Daniel Puppy</ChannelName>
-          <Info>660,908 views • 1 day ago</Info>
+          <Title>{video?.title}</Title>
+          <ChannelName>{channel?.name}</ChannelName>
+          <Info>
+            {video?.views} views • {format(video?.createdAt)}
+          </Info>
         </Texts>
       </Details>
     </Container>

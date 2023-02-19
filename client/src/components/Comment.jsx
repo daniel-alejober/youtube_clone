@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { format } from "timeago.js";
 import {
   Text,
   Date,
@@ -7,21 +8,32 @@ import {
   Avatar,
   Container,
 } from "../styles/commentStyles";
+import clientAxios from "../utils/clientAxios";
 
-const Comment = () => {
+const Comment = ({ comment }) => {
+  const [userComment, setUserComment] = useState({});
+  useEffect(() => {
+    const getUserComment = async () => {
+      try {
+        const { data } = await clientAxios.get(
+          `/users/find/${comment?.userId}`
+        );
+        if (data.success) setUserComment(data.user);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getUserComment();
+  }, []);
+
   return (
     <Container>
-      <Avatar src="https://avatars.githubusercontent.com/u/74944181?s=400&u=e703ca9165d84a1db5007876497551be79f5f85a&v=4" />
+      <Avatar src={userComment?.img} alt={userComment?.name} />
       <Details>
         <Name>
-          John Puppy <Date>1 day ago</Date>
+          {userComment?.name} <Date>{format(comment?.updatedAt)}</Date>
         </Name>
-        <Text>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Vel, ex
-          laboriosam ipsam aliquam voluptatem perferendis provident modi, sequi
-          tempore reiciendis quod, optio ullam cumque? Quidem numquam sint
-          mollitia totam reiciendis?
-        </Text>
+        <Text>{comment?.desc}</Text>
       </Details>
     </Container>
   );

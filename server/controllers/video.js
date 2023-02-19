@@ -104,6 +104,7 @@ const trend = async (req, res) => {
 };
 
 const sub = async (req, res) => {
+  console.log(req.id);
   try {
     const user = await User.findById(req.id);
     const subscribedChannels = user.subscribedUsers;

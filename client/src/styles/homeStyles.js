@@ -7,4 +7,9 @@ const Container = styled.div`
   padding: 2rem;
 `;
 
-export { Container };
+const NoSub = styled.h1`
+  color: ${({ theme }) => theme.text};
+  text-align: center;
+`;
+
+export { Container, NoSub };

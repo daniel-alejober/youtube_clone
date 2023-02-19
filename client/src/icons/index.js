@@ -13,15 +13,21 @@ import IconSettings from "./IconSettings";
 import IconBxHelpCircle from "./IconBxHelpCircle";
 import IconDarkMode from "./IconDarkMode";
 import IconFlag from "./IconFlag";
-import IconLike from "./IconLike";
-import IconDislike from "./IconDislike";
 import IconShare from "./IconShare";
 import IconSave from "./IconSave";
 
+const blockOneUser = [
+  { description: "Home", icon: IconHome, route: "/" },
+  { description: "Explore", icon: IconExplore, route: "/trends" },
+  {
+    description: "Subscriptions",
+    icon: IconYoutubeSubscription,
+    route: "/subscriptions",
+  },
+];
 const blockOne = [
-  { description: "Home", icon: IconHome },
-  { description: "Explore", icon: IconExplore },
-  { description: "Subscriptions", icon: IconYoutubeSubscription },
+  { description: "Home", icon: IconHome, route: "/" },
+  { description: "Explore", icon: IconExplore, route: "/trends" },
 ];
 
 const blockTwo = [
@@ -46,10 +52,8 @@ const blockFour = [
 ];
 
 const blockVideo = [
-  { description: "Like", icon: IconLike },
-  { description: "Dislike", icon: IconDislike },
   { description: "Share", icon: IconShare },
   { description: "Save", icon: IconSave },
 ];
 
-export { blockOne, blockTwo, blockThree, blockFour, blockVideo };
+export { blockOne, blockTwo, blockThree, blockFour, blockVideo, blockOneUser };

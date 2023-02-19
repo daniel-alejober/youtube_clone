@@ -9,6 +9,7 @@ import Navbar from "./components/Navbar";
 import Home from "./views/Home";
 import Video from "./views/Video";
 import SignIn from "./views/SignIn";
+import Search from "./views/Search";
 
 function App() {
   const [darkMode, setDarkMode] = useState(true);
@@ -22,12 +23,12 @@ function App() {
           <Main>
             <Navbar />
             <Routes>
-              <Route
-                path="/"
-                element={<Home setDarkMode={setDarkMode} darkMode={darkMode} />}
-              />
+              <Route path="/" element={<Home type="random" />} />
+              <Route path="/trends" element={<Home type="trend" />} />
+              <Route path="/subscriptions" element={<Home type="sub" />} />
               <Route path="/video/:id" element={<Video />} />
               <Route path="/signin" element={<SignIn />} />
+              <Route path="/search" element={<Search />} />
             </Routes>
           </Main>
         </Container>

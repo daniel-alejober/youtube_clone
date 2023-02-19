@@ -24,4 +24,22 @@ const Input = styled.input`
   width: 100%;
 `;
 
-export { Avatar, Input, NewComment, Container };
+const NoComments = styled.h1`
+  color: ${({ theme }) => theme.text};
+  text-align: center;
+`;
+
+const Form = styled.form`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 90%;
+`;
+
+const BtnSend = styled.button`
+  background-color: transparent;
+  border: none;
+  color: ${({ theme }) => theme.text};
+`;
+
+export { Avatar, Input, NewComment, Container, NoComments, Form, BtnSend };
