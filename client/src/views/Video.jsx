@@ -5,7 +5,7 @@ import clientAxios from "../utils/clientAxios";
 import { format } from "timeago.js";
 import { loginSuccess } from "../redux/userSlice";
 import Comments from "../components/Comments";
-import Card from "../components/Card";
+import Recommendations from "../components/Recommendations";
 import { blockVideo } from "../icons";
 import IconLike from "../icons/IconLike";
 import IconDislike from "../icons/IconDislike";
@@ -14,7 +14,6 @@ import IconCurrentLike from "../icons/IconCurrentLike";
 import {
   Container,
   Content,
-  Recommendation,
   VideoWrapper,
   Title,
   Details,
@@ -30,6 +29,7 @@ import {
   ChannelCounter,
   Description,
   Subscribe,
+  VideoFrame,
 } from "../styles/videoStyles";
 const Video = () => {
   const { currentUser } = useSelector((state) => state.user);
@@ -120,14 +120,7 @@ const Video = () => {
     <Container>
       <Content>
         <VideoWrapper>
-          <iframe
-            width="100%"
-            height="500"
-            src="https://www.youtube.com/embed/k3Vfj-e1Ma4"
-            title="YouTube video player"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-          ></iframe>
+          <VideoFrame src={dataVideo?.videoUrl} controls />
         </VideoWrapper>
         <Title>{dataVideo?.title}</Title>
         <Details>
@@ -178,23 +171,10 @@ const Video = () => {
           </Subscribe>
         </Channel>
         <Hr />
-        <Comments />
+        <Comments videoId={id} />
       </Content>
-      {/* <Recommendation>
-        <Card type="sm" />
-        <Card type="sm" />
-        <Card type="sm" />
-        <Card type="sm" />
-        <Card type="sm" />
-        <Card type="sm" />
-        <Card type="sm" />
-        <Card type="sm" />
-        <Card type="sm" />
-        <Card type="sm" />
-        <Card type="sm" />
-        <Card type="sm" />
-        <Card type="sm" />
-      </Recommendation> */}
+
+      {dataVideo.tags && <Recommendations tags={dataVideo.tags} />}
     </Container>
   );
 };

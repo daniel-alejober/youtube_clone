@@ -9,6 +9,7 @@ const Container = styled.div`
 
 const NoSub = styled.h1`
   color: ${({ theme }) => theme.text};
+  text-align: center;
 `;
 
 export { Container, NoSub };

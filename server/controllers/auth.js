@@ -51,6 +51,7 @@ const signin = async (req, res) => {
       .cookie("access_token", token, {
         httpOnly: true,
         maxAge: 24 * 60 * 60 * 1000, //*24hrs
+        sameSite: "strict",
       })
       .status(200)
       .json(others);

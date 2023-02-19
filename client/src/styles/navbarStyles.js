@@ -56,7 +56,7 @@ const BtnLogin = styled.button`
 const User = styled.div`
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 1.2rem;
   font-weight: 500;
   color: ${({ theme }) => theme.text};
 `;

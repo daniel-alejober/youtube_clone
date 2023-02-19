@@ -13,6 +13,12 @@ const Content = styled.div`
 const VideoWrapper = styled.div`
   padding: 1rem;
 `;
+
+const VideoFrame = styled.video`
+  max-height: 50rem;
+  width: 100%;
+  object-fit: cover;
+`;
 const Title = styled.h1`
   font-size: 1.8rem;
   font-weight: 400;
@@ -104,6 +110,7 @@ export {
   Content,
   Recommendation,
   VideoWrapper,
+  VideoFrame,
   Title,
   Details,
   Info,
