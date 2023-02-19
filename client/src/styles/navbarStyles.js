@@ -53,6 +53,20 @@ const BtnLogin = styled.button`
   gap: 0.5rem;
 `;
 
+const BtnLogout = styled.button`
+  padding: 0.5rem 1.5rem;
+  background-color: #d23513;
+  border: 1px solid #b82202;
+  color: #121111;
+  border-radius: 3px;
+  font-weight: bolder;
+  margin: 0.5rem 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+`;
+
 const User = styled.div`
   display: flex;
   align-items: center;
@@ -73,4 +87,14 @@ const BtnSend = styled.button`
   color: ${({ theme }) => theme.text};
 `;
 
-export { Search, BtnLogin, Input, Wrapper, Container, User, Avatar, BtnSend };
+export {
+  Search,
+  BtnLogin,
+  Input,
+  Wrapper,
+  Container,
+  User,
+  Avatar,
+  BtnSend,
+  BtnLogout,
+};

@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import IconUser from "../icons/IconUser";
 import IconSearch from "../icons/IconSearch";
 import IconVideoCamera from "../icons/IconVideoCamera";
+import IconLogout from "../icons/IconLogout";
 import {
   Search,
   BtnLogin,
@@ -13,6 +14,7 @@ import {
   User,
   Avatar,
   BtnSend,
+  BtnLogout,
 } from "../styles/navbarStyles";
 import Upload from "./Upload";
 
@@ -27,6 +29,10 @@ const Navbar = () => {
     if (searchVideo === "") return;
 
     navigate(`/search?q=${searchVideo}`);
+  };
+
+  const logout = () => {
+    // navigate('/')
   };
 
   return (
@@ -51,6 +57,9 @@ const Navbar = () => {
               />
               <Avatar src={currentUser?.img} />
               {currentUser.name}
+              <BtnLogout onClick={logout}>
+                Logout <IconLogout />
+              </BtnLogout>
             </User>
           ) : (
             <BtnLogin onClick={() => navigate("/signin")}>
