@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { loginSuccess } from "../redux/userSlice";
 import IconUser from "../icons/IconUser";
 import IconSearch from "../icons/IconSearch";
 import IconVideoCamera from "../icons/IconVideoCamera";
@@ -20,6 +21,7 @@ import Upload from "./Upload";
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { currentUser } = useSelector((state) => state.user);
   const [openModal, setOpenModal] = useState(false);
   const [searchVideo, setSearchVideo] = useState("");
@@ -32,7 +34,8 @@ const Navbar = () => {
   };
 
   const logout = () => {
-    // navigate('/')
+    dispatch(loginSuccess(null));
+    navigate("/");
   };
 
   return (
