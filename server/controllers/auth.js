@@ -52,6 +52,7 @@ const signin = async (req, res) => {
         httpOnly: true,
         maxAge: 24 * 60 * 60 * 1000, //*24hrs
         sameSite: "strict",
+        domain: process.env.URL_CLIENT,
       })
       .status(200)
       .json(others);
