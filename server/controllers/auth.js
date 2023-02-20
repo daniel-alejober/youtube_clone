@@ -53,7 +53,7 @@ const signin = async (req, res) => {
         maxAge: 24 * 60 * 60 * 1000, //*24hrs
         sameSite: "none",
         secure: true,
-        domain: ".netlify.app",
+        domain: ".netlify",
       })
       .status(200)
       .json(others);
