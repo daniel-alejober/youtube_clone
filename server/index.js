@@ -19,9 +19,10 @@ app.use("/api/v1/comments", commentRoutes);
 app.use("/api/v1/videos", videoRoutes);
 
 const startServer = async () => {
+  const port = process.env.PORT || 8080;
   try {
     await connectDB(process.env.MONGO_DB);
-    app.listen(8080, () => {
+    app.listen(port, () => {
       console.log("Server connected in the port 8080");
     });
   } catch (error) {
